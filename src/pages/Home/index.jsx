@@ -3,7 +3,6 @@ import { ScrollView, FlatList, View, Text } from 'react-native';
 
 import { styles } from './styles'
 import api from '../../services/api'
-import ListBar from '../../components/ListBar';
 import PostLayout from '../../components/PostLayout';
 import Footer from '../../components/Footer'
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +14,7 @@ export default function Home() {
     const response = await api.get("/categories")
     setcategories(response.data)
   }, [])
+  
   const navigation = useNavigation();
   const renderItem = ({ item }) => ( 
     <>
@@ -22,7 +22,7 @@ export default function Home() {
       <View style={styles.containerTitle}>
         <Text style={styles.titleSection}>{item.name}</Text>
         <Text onPress={() => {
-          navigation.push('CategoryCourses', {category_id: "item.id"})
+          navigation.push('CategoryCourses', {category_id: item.id, category_name: item.name})
         }}>VER MAIS ➤</Text>
       </View>
     </View>

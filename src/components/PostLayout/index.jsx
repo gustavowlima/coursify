@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 import { useEffect, useState } from 'react';
-import {useNavigation} from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 import { styles } from './styles'
 import api from '../../services/api'
@@ -30,9 +30,13 @@ export default PostLayout = ({ category_id }) => {
   }
   const RenderItem = ({ item }) => (
     <View>
-      <TouchableOpacity style={styles.containerItem}>
-       
-       <Media imageId={item.featured_media}/>
+      <TouchableOpacity style={styles.containerItem}
+        onPress={() => {
+          navigation.push('PageContent', { Post_id: item.id, Post_name: item.title.rendered })
+        }}
+      >
+
+        <Media imageId={item.featured_media} />
         <View style={styles.textContainer}>
           <Text numberOfLines={2} ellipsizeMode='head' style={styles.titlePost}>{item.title.rendered}</Text>
           <View style={styles.descriptionPost}>
